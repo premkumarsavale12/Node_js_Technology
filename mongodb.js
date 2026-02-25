@@ -1,27 +1,32 @@
-
 import express from 'express';
+import { MongoClient } from 'mongodb';
 
 const app = express();
 
-import { MongoClient } from 'mongodb';
-
 const dbName = "company";
-
 const url = "mongodb://localhost:27017";
-
 const client = new MongoClient(url);
 
- async function dbCollection() {
+app.set("view engine", "ejs");
 
-   await client.connect();
-    const db = client.db(dbName);
-    const collection = db.collection("employess");
-    const result = await collection.find().toArray();
-    console.log(result);
+app.get("/", async (req, res) => {
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        const collection = db.collection("employees"); // corrected name
+        
+        const result = await collection.find().toArray();
+        
+        console.log(result);
 
-}
+        res.render("student", { employees: result });
 
-dbCollection();
+    } catch (error) {
+        console.log(error);
+        res.send("Error fetching data");
+    }
+});
 
-app.listen(2300);
-
+app.listen(2300, () => {
+    console.log("Server running on port 2300");
+});
