@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MongoDB Data Display</title>
+</head>
+
+<body>
+
+    <table border="1">
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>City</th>
+            <th>Age</th>
+            <th>Role</th>
+        </tr>
+
+        <%- Student.map(item=> `
+            <tr>
+                <td>${item.FirstName}</td>
+                <td>${item.LastName}</td>
+                <td>${item.City}</td>
+                <td>${item.age}</td>
+                <td>${item.role}</td>
+            </tr>
+            `).join("") %>
+
+    </table>
+
+</body>
+
+</html>
