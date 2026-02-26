@@ -1,5 +1,5 @@
 import express from 'express';
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 
 const app = express();
 app.set("view engine", "ejs");
@@ -101,6 +101,53 @@ client.connect().then(() => {
         console.log(data);
 
         res.send({ message: "data stored ", success: true, data: data });
+
+    })
+
+    app.delete("/delete/:id", async (req, res) => {
+
+        console.log(req.params.id);
+        const db = client.db(dbName);
+        const collection = db.collection("Student");
+        const data = await collection.deleteOne({ _id: new ObjectId(req.params.id) });
+
+        console.log(data);
+
+        if (data) {
+            res.send({
+                message: "Student data Deleted ",
+                success: true
+            })
+        }
+
+        else {
+            res.send({
+                message: "Student data not  Deleted try after some time .... ",
+                success: false
+            })
+        }
+
+
+    });
+
+
+    app.get("/ui/delete/:id", async (req, res) => {
+
+        console.log(req.params.id);
+        const db = client.db(dbName);
+        const collection = db.collection("Student");
+        const data = await collection.deleteOne({ _id: new ObjectId(req.params.id) });
+
+        console.log(data);
+
+        if (data) {
+            res.send("<h1> Student record  deleted  </h1>")
+        }
+
+        else {
+            res.send("<h1> Student record not  deleted  </h1>")
+        }
+
 
     })
 
