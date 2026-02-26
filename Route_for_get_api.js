@@ -130,7 +130,6 @@ client.connect().then(() => {
 
     });
 
-
     app.get("/ui/delete/:id", async (req, res) => {
 
         console.log(req.params.id);
