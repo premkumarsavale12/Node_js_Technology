@@ -70,7 +70,7 @@ client.connect().then(() => {
             `)
 
     });
-
+    
     app.post("/add-student", async (req, res) => {
         //console.log(req.body);
         const db = client.db(dbName);
@@ -127,9 +127,7 @@ client.connect().then(() => {
             })
         }
 
-
     });
-
 
     app.get("/ui/delete/:id", async (req, res) => {
 
@@ -149,7 +147,7 @@ client.connect().then(() => {
         }
 
 
-    })
+    });
 
 });
 
