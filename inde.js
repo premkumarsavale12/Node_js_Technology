@@ -17,6 +17,27 @@ app.get("/", async (req, res) => {
 
     res.send(studentData);
 
+});
+
+app.post("/save", async (req, resp) => {
+    console.log(req.body);
+    const { name, age, email } = req.body;
+    if (!req.body || !name || !age || !email) {
+        resp.send({
+            message: "data not stored",
+            success: false,
+            storedInfo: null
+        })
+        return false
+    }
+    const studentData = await studentModel.create(req.body)
+
+    resp.send({
+        message: "data stored",
+        success: true,
+        storedInfo: studentData
+    })
+
 })
 
 app.listen(3200);
